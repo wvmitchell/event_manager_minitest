@@ -34,4 +34,14 @@ class AttendeeTest < MiniTest::Unit::TestCase
     attendee = Attendee.new(phone_number: '13038877697')
     assert_equal '3038877697', attendee.phone_number
   end
+
+  def test_if_throws_away_numbers_that_are_too_long
+    attendee = Attendee.new(phone_number: '234527384943582')
+    assert_equal '0000000000', attendee.phone_number
+  end
+
+  def test_it_throws_away_phone_numbers_that_are_too_short
+    attendee = Attendee.new(phone_number: '123334')
+    assert_equal '0000000000', attendee.phone_number
+  end
 end

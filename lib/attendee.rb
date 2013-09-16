@@ -11,10 +11,16 @@ class Attendee
   end
 
   def clean_phone_number(number)
-    unless number == nil
-      number = number.tr('^0-9', '')
-      if number.length == 11 then number = number[1..-1] end
-    end
+    number = number.tr('^0-9', '') unless number.nil?
+    number = correct_length(number) unless number.nil?
+  end
+
+  def correct_length(number)
+    number.length == 10 ? number : repair_num(number)
+  end
+
+  def repair_num(num)
+    num.length > 11 || num.length < 10 ? '0000000000' : num[1..-1]
   end
 
 end
